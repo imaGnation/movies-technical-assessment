@@ -1,0 +1,27 @@
+// @import 'bootstrap/dist/css/bootstrap.css';
+@import './sass/variables.scss';
+
+body {
+  height: 100vh;
+  margin: 0;  
+  background: radial-gradient(ellipse farthest-corner at center top, #ffee75, #ff8930);
+  color: #8b9095;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+}
+.App {
+  font-family: sans-serif;
+  text-align: center;
+    width: 640px;
+  height: 390px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, .2);
+
+  h1,
+  h2 {
+    font-size: 20px;
+    position: relative;
+    color: $primaryColor;
+  }
+}
