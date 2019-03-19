@@ -22,8 +22,8 @@ export class OrderComponent extends Component {
                 <InputLabel>
                     {this.props.placeholder}
                 </InputLabel>
-                <FormControl fullWidth>
-                    <Select
+                <FormControl>
+                    <Select className="test"
                         value={this.props.value}
                         onChange={(event) => this.props.handleChange(event)}
                         options={loadOptions(this.props.items)}

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import OrderComponent from './OrderComponent';
 import MovieItem from './MovieItem';
 import Loader from 'react-loader-spinner';
+import MovieItemComponent from './MovieItemComponent';
 
 export class MovieList extends Component {
     constructor(props, state) {
@@ -50,8 +51,10 @@ export class MovieList extends Component {
 
         return (<div>
             {renderLoader(this.state.isLoaderActive)}
-            {renderOrderItems('Order Movies by:', this.props.sortOderItems)}
-            {renderMovieList(this.props.movies)}
+            <MovieItemComponent items={this.props.movies} type={this.props.movieList !== null ? this.props.movieList.type : ''}
+                handleSelectOrderChange={(value) => this.handleSelectOrderChange(value)} placeholder={'Sort by'} sortBy={this.state.sortBy}
+                sortItems={this.props.sortOderItems}
+            />
         </div>)
     }
 }

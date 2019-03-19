@@ -71,7 +71,7 @@ export class MovieItem extends Component {
                         image={movie.imageUrl}
                         title={movie.title}
                     />
-                    <CardContent>
+                    <CardContent className="movie">
 
                     </CardContent>
                     <CardActions className={classes.actions} disableActionSpacing>
