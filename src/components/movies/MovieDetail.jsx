@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { removeSelectedMovie } from '../../actions/movie';
 import { Button } from "@material-ui/core";
+import ShareIcon from "@material-ui/icons/Share";
+import IconButton from "@material-ui/core/IconButton";
 
 export class MovieDetail extends Component {
     constructor(props, state) {
@@ -61,6 +63,9 @@ export class MovieDetail extends Component {
                     </CardContent>
                     <CardActions disableActionSpacing>
                         <Button onClick={this.cancel.bind(this)} className="cancel">Cancel</Button>
+                        <IconButton aria-label="Share">
+                            <ShareIcon />
+                        </IconButton>
                     </CardActions>
                 </Card>
             </div>);
