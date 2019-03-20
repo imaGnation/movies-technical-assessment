@@ -1,4 +1,5 @@
 import * as MovieActionTypes from '../actions/movie';
+import { REHYDRATE } from 'redux-persist/lib/constants';
 import _ from 'lodash';
 
 const initialState = {};
@@ -10,7 +11,6 @@ export const reducer = (state, action) => {
         case MovieActionTypes.GET_5_TOP_MOVIES_REQUEST:
             return {
                 ...state,
-                movieList: undefined,
                 error: undefined
             }
 
@@ -45,6 +45,17 @@ export const reducer = (state, action) => {
                 movieList: sortMoviesBy(action.sortBy, state.movieList)
             }
 
+
+        case REHYDRATE:
+            const movies = action.payload !== undefined ? action.payload.movies : {};
+            const movieList = movies.movieList !== undefined ? movies.movieList : undefined;
+            const selectedMovie = movies.selectedMovie !== undefined ? movies.selectedMovie : undefined;
+            return {
+                ...state,
+                movieList: movieList,
+                selectedMovie: selectedMovie
+            }
+
         default:
             return state;
     }
@@ -61,20 +72,6 @@ function loadSelction(movieList) {
     }
     return movieList;
 }
-
-// function selectMovie(title, movieList) {
-//     if (!_.isEmpty(title) && movieList !== undefined && movieList.components !== undefined)
-//         movieList.components.forEach((component) => {
-//             if (component.type === 'movie-list')
-//                 component.items.forEach((movie) => {
-//                     if (movie.title === title)
-//                         movie.isSelected = !movie.isSelected;
-//                     else
-//                         movie.isSelected = false;
-//                 });
-//         });
-//     return movieList;
-// }
 
 function sortMoviesBy(sortBy, movieList) {
     if (!_.isEmpty(sortBy) && movieList !== undefined && movieList.components !== undefined)

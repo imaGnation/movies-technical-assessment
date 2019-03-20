@@ -27,7 +27,7 @@ export class MovieDetail extends Component {
     }
 
     conponentWillMount = () => {
-        if (this.props.movie === undefined)
+        if (this.props.selectedMovie === undefined)
             this.props.history.push('/');
 
         if (this.props.selectedMovie !== undefined)
