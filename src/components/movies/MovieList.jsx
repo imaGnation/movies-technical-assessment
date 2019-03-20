@@ -21,13 +21,12 @@ export class MovieList extends Component {
     }
 
     componentDidUpdate = () => {
-        if (this.state.isLoaderActive)
+        debugger
+        if (this.props.selectedMovie !== null) {
             this.setState({ isLoaderActive: false });
-    }
+            this.props.history.push('/selected-movie');
+        }
 
-    handleExpandClick = (title) => {
-        this.setState({ isLoaderActive: true });
-        this.props.markMovieAsSelected(title, this.props.movieList);
     }
 
     handleSelectOrderChange = (sortBy) => {
@@ -35,27 +34,24 @@ export class MovieList extends Component {
         this.props.orderMovies(sortBy.value);
     }
 
-    render = () => {
-        const renderOrderItems = (placeholder, items) => {
-            return <OrderComponent handleChange={(value) => this.handleSelectOrderChange(value)} items={items}
-                placeholder={placeholder} value={this.state.sortBy} />
-        }
+    handleOnMovieClick = (movie) => {
+        this.setState({ isLoaderActive: true });
+        this.props.markMovieAsSelected(movie);
+    }
 
+    render = () => {
         const renderLoader = (active) => {
             if (active) return <div> <div> <Loader type="Oval" color="#97b03a" height="100" width="100" /> </div> </div>
         }
 
-        const renderMovieList = (movies) => {
-            return <MovieItem items={movies} handleClick={(title) => this.handleExpandClick(title)} />
-        }
 
         return (<div>
             {renderLoader(this.state.isLoaderActive)}
             <MovieItemComponent items={this.props.movies} type={this.props.movieList !== null ? this.props.movieList.type : ''}
                 handleSelectOrderChange={(value) => this.handleSelectOrderChange(value)} placeholder={'Sort by'} sortBy={this.state.sortBy}
-                sortItems={this.props.sortOderItems}
+                sortItems={this.props.sortOderItems} onClick={(movie) => this.handleOnMovieClick(movie)}
             />
-        </div>)
+        </div>);
     }
 }
 
@@ -79,7 +75,8 @@ function mapStateToProps(state, ownProps) {
     return {
         movieList: movieList,
         sortOderItems: sortOderItems,
-        movies: movies
+        movies: movies,
+        selectedMovie: state.movies.selectedMovie !== undefined ? state.movies.selectedMovie : null
     }
 }
 

@@ -8,7 +8,7 @@ export class MovieItemComponent extends Component {
         const renderMoviecard = (items) => {
             if (items !== undefined)
                 return items.map((movie) => {
-                    return (<div className="movie" key={movie.id}>
+                    return (<div className="movie" key={movie.id} onClick={() => this.props.onClick(movie)}>
                         <img src={movie.imageUrl} alt={movie.title} className="poster" />
                         <div className="title">{movie.title}</div>
                         <div className="info">
@@ -21,7 +21,7 @@ export class MovieItemComponent extends Component {
         return (<div className="app">
             <div className="headerComponent">
                 <h2 className="spacer">{this.props.type}</h2>
-                <div className="spacer">…</div>
+                <div className="spacer"></div>
                 <div className="spacer orderComponent">
                     <OrderComponent handleChange={(value) => this.props.handleSelectOrderChange(value)} items={this.props.sortItems}
                         placeholder={this.props.placeholder} value={this.props.sortBy} />

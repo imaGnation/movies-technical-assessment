@@ -30,7 +30,13 @@ export const reducer = (state, action) => {
         case MovieActionTypes.MARK_MOVIE_AS_SELECTED:
             return {
                 ...state,
-                movieList: selectMovie(action.title, action.movieList)
+                selectedMovie: action.movie
+            }
+
+        case MovieActionTypes.REMOVE_SELECTED_MOVIE:
+            return {
+                ...state,
+                selectedMovie: undefined
             }
 
         case MovieActionTypes.ORDER_MOVIES_BY_FIELD:
@@ -56,19 +62,19 @@ function loadSelction(movieList) {
     return movieList;
 }
 
-function selectMovie(title, movieList) {
-    if (!_.isEmpty(title) && movieList !== undefined && movieList.components !== undefined)
-        movieList.components.forEach((component) => {
-            if (component.type === 'movie-list')
-                component.items.forEach((movie) => {
-                    if (movie.title === title)
-                        movie.isSelected = !movie.isSelected;
-                    else
-                        movie.isSelected = false;
-                });
-        });
-    return movieList;
-}
+// function selectMovie(title, movieList) {
+//     if (!_.isEmpty(title) && movieList !== undefined && movieList.components !== undefined)
+//         movieList.components.forEach((component) => {
+//             if (component.type === 'movie-list')
+//                 component.items.forEach((movie) => {
+//                     if (movie.title === title)
+//                         movie.isSelected = !movie.isSelected;
+//                     else
+//                         movie.isSelected = false;
+//                 });
+//         });
+//     return movieList;
+// }
 
 function sortMoviesBy(sortBy, movieList) {
     if (!_.isEmpty(sortBy) && movieList !== undefined && movieList.components !== undefined)
