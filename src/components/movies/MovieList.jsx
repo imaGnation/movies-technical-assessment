@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { getTopFiveMovies, markMovieAsSelected, orderMovies } from '../../actions/movie';
 import { connect } from 'react-redux';
-import OrderComponent from './OrderComponent';
-import MovieItem from './MovieItem';
 import Loader from 'react-loader-spinner';
 import MovieItemComponent from './MovieItemComponent';
+import _ from 'lodash';
 
 export class MovieList extends Component {
     constructor(props, state) {
@@ -31,7 +30,8 @@ export class MovieList extends Component {
 
     handleSelectOrderChange = (sortBy) => {
         this.setState({ sortBy: sortBy });
-        this.props.orderMovies(sortBy.value);
+        if (!_.isEmpty(sortBy))
+            this.props.orderMovies(sortBy.value);
     }
 
     handleOnMovieClick = (movie) => {
@@ -69,6 +69,8 @@ function mapStateToProps(state, ownProps) {
                 case 'movie-list':
                     movies = component.items;
                     break;
+                default:
+                    break
             }
         });
 
